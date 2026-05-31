@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "nodemailer": "^8.0.8",
+    "@supabase/supabase-js": "^2.106.1"
+  }
+}
