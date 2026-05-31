@@ -29,10 +29,10 @@ export default async function handler(req, res) {
     }
 
     // ── 1. Supabase mein Data Save Karna ──────────────────────────────────
-    const supabase = createClient(
-      process.env.VITE_SUPABASE_URL,
-      process.env.VITE_SUPABASE_ANON_KEY
-    );
+      const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
 
     const { error: dbError } = await supabase
       .from('inquiries')
