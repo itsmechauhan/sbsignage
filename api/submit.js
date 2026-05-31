@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
-
+// api/submit.js ke bilkul top pe add karo — imports se pehle
+import 'dotenv/config';
 // Vercel Node.js runtime explicitly set karna zaroori hai
 export const config = {
   runtime: 'nodejs',
@@ -29,11 +30,10 @@ export default async function handler(req, res) {
     }
 
     // ── 1. Supabase mein Data Save Karna ──────────────────────────────────
-      const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
+   const supabase = createClient(
+  process.env.SUPABASE_URL || 'https://zbedchspjzbqikmlpnhn.supabase.co',  // apni actual URL
+  process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiZWRjaHNwanpicWlrbWxwbmhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxOTcxODAsImV4cCI6MjA5NTc3MzE4MH0.5LMDC_I-PYURWS2kPjMIYepFqxJDWURSrHfxvZkyjRQ'  // apni actual key
 );
-
     const { error: dbError } = await supabase
       .from('inquiries')
       .insert([{ name, phone, email: email || null, service_type, message: message || null }]);
