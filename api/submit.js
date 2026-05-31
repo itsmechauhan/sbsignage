@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 
 // Vercel Node.js runtime explicitly set karna zaroori hai
 export const config = {
-  runtime: 'nodejs20.x',
+  runtime: 'nodejs',
 };
 
 export default async function handler(req, res) {
