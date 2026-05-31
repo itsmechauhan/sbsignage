@@ -43,6 +43,12 @@ export default async function handler(req, res) {
       throw new Error('Database Error: ' + dbError.message);
     }
 
+    console.log('ENV CHECK:', {
+  supabaseUrl: process.env.SUPABASE_URL ? 'SET' : 'MISSING',
+  supabaseKey: process.env.SUPABASE_ANON_KEY ? 'SET' : 'MISSING',
+  zohoEmail: process.env.ZOHO_EMAIL ? 'SET' : 'MISSING',
+  zohoPass: process.env.ZOHO_PASSWORD ? 'SET' : 'MISSING',
+});
     // ── 2. Zoho SMTP se Email Bhejna ───────────────────────────────────────
     const transporter = nodemailer.createTransport({
       host: 'smtp.zoho.in',   // India ke liye smtp.zoho.in use karo
