@@ -81,12 +81,12 @@ const services = [
 ];
 
 const galleryImages = [
-  { src: '/images/gallery1.jpg', alt: 'LED Signage Work 1' },
-  { src: '/images/gallery2.jpg', alt: 'LED Signage Work 2' },
-  { src: '/images/gallery3.jpg', alt: 'LED Signage Work 3' },
-  { src: '/images/gallery4.jpg', alt: 'LED Signage Work 4' },
-  { src: '/images/gallery5.jpg', alt: 'LED Signage Work 5' },
-  { src: '/images/gallery6.jpg', alt: 'LED Signage Work 6' },
+  { src: '/images/gallery1.jpeg', alt: 'LED Signage Work 1' },
+  { src: '/images/gallery2.jpeg', alt: 'LED Signage Work 2' },
+  { src: '/images/gallery3.jpeg', alt: 'LED Signage Work 3' },
+  { src: '/images/gallery4.jpeg', alt: 'LED Signage Work 4' },
+  { src: '/images/gallery5.jpeg', alt: 'LED Signage Work 5' },
+  { src: '/images/gallery6.jpeg', alt: 'LED Signage Work 6' },
 ];
 
 // --- Image Lightbox ---
