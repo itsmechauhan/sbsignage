@@ -81,12 +81,12 @@ const services = [
 ];
 
 const galleryImages = [
-  { src: '/images/gallery1.jpeg', alt: 'LED Signage Work 1' },
-  { src: '/images/gallery2.jpeg', alt: 'LED Signage Work 2' },
-  { src: '/images/gallery3.jpeg', alt: 'LED Signage Work 3' },
-  { src: '/images/gallery4.jpeg', alt: 'LED Signage Work 4' },
-  { src: '/images/gallery5.jpeg', alt: 'LED Signage Work 5' },
-  { src: '/images/gallery6.jpeg', alt: 'LED Signage Work 6' },
+  { src: '/images/gallery1.jpg', alt: 'LED Signage Work 1' },
+  { src: '/images/gallery2.jpg', alt: 'LED Signage Work 2' },
+  { src: '/images/gallery3.jpg', alt: 'LED Signage Work 3' },
+  { src: '/images/gallery4.jpg', alt: 'LED Signage Work 4' },
+  { src: '/images/gallery5.jpg', alt: 'LED Signage Work 5' },
+  { src: '/images/gallery6.jpg', alt: 'LED Signage Work 6' },
 ];
 
 // --- Image Lightbox ---
@@ -486,8 +486,8 @@ export default function App() {
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-300"
+                  onLoad={(e) => { const el = e.target as HTMLImageElement; el.closest('.relative')?.querySelector('.placeholder-div' as any)?.classList.add('hidden'); }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
                 {/* Placeholder when no image */}
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-white/3 to-transparent">
@@ -542,15 +542,12 @@ export default function App() {
 
             <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
               <div className="aspect-[4/5] rounded-[2rem] bg-[#111] border border-white/10 overflow-hidden relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-24 h-24 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-[1.5rem] flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-cyan-500/20 group-hover:scale-110 transition-transform duration-500">
-                      <Lightbulb className="w-12 h-12 text-white" />
-                    </div>
-                    <p className="text-gray-600 font-bold uppercase tracking-widest text-sm">Your Workshop Image</p>
-                  </div>
-                </div>
+                <img
+                  src="/images/workshop.png"
+                  alt="SB LED Boards Workshop"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
