@@ -172,7 +172,7 @@ function ContactModal({ service, onClose }: { service: typeof services[0]; onClo
 
               <div className="mt-12 p-6 bg-black/20 backdrop-blur-md rounded-2xl border border-white/10">
                 <p className="text-white/60 text-sm mb-1 uppercase tracking-wider">Prefer to call?</p>
-                <p className="text-white font-bold text-2xl font-['Space_Grotesk']">+91 9461018391</p>
+                <p className="text-white font-bold text-2xl font-['Space_Grotesk']">+91 9001933901</p>
               </div>
             </div>
           </div>
@@ -433,7 +433,7 @@ function App() {
             <h2 className="text-5xl sm:text-7xl font-black mt-6 mb-8 font-['Outfit'] tracking-tight">
               Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-500">Masterpieces</span>
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-xl">Browse through our collection of premium signage projects delivered across Rajasthan.</p>
+            <p className="text-gray-400 max-w-2xl mx-auto text-xl">Browse through our collection of premium signage projects delivered across India.</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -459,7 +459,6 @@ function App() {
               </motion.div>
             ))}
           </div>
-          <p className="text-center text-gray-600 mt-12 text-sm font-mono">💡 Replace placeholder images with your actual work photos in /public/images/</p>
         </div>
       </section>
 
@@ -544,9 +543,9 @@ function App() {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
-              { icon: Phone, title: 'Call Us', info: '+91 9461018391', link: 'tel:+919461018391', color: 'from-amber-500 to-orange-600' },
+              { icon: Phone, title: 'Call Us', info: '+91 9001933901', link: 'tel:+919001933901', color: 'from-amber-500 to-orange-600' },
               { icon: Mail, title: 'Email Us', info: 'rbsjaipur1@gmail.com', link: 'mailto:rbsjaipur1@gmail.com', color: 'from-fuchsia-500 to-purple-600' },
-              { icon: MapPin, title: 'Visit Us', info: 'Ganesh Vihar, Jamna Puri, Jaipur - 302012', link: '#', color: 'from-cyan-500 to-blue-600' }
+              { icon: MapPin, title: 'Visit Us', info: 'XPWM+WQH, Ganesh Vihar, Shankar Vihar Extension, Jamna Puri, Jaipur, Rajasthan 302012', link: 'https://maps.app.goo.gl/frH9c1c64CkQGPDg7', color: 'from-cyan-500 to-blue-600' }
             ].map((item, i) => (
               <motion.a
                 key={i}
