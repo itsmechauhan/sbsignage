@@ -544,7 +544,7 @@ function App() {
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               { icon: Phone, title: 'Call Us', info: '+91 9001933901', link: 'tel:+919001933901', color: 'from-amber-500 to-orange-600' },
-              { icon: Mail, title: 'Email Us', info: 'rbsjaipur1@gmail.com', link: 'mailto:rbsjaipur1@gmail.com', color: 'from-fuchsia-500 to-purple-600' },
+              { icon: Mail, title: 'Email Us', info: 'sbsignagebrandingsolution@gmail.com', link: 'mailto:sbsignagebrandingsolution@gmail.com', color: 'from-fuchsia-500 to-purple-600' },
               { icon: MapPin, title: 'Visit Us', info: 'XPWM+WQH, Ganesh Vihar, Shankar Vihar Extension, Jamna Puri, Jaipur, Rajasthan 302012', link: 'https://maps.app.goo.gl/frH9c1c64CkQGPDg7', color: 'from-cyan-500 to-blue-600' }
             ].map((item, i) => (
               <motion.a
