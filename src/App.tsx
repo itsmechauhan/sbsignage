@@ -298,8 +298,10 @@ export default function App() {
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? 'bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 py-3' : 'bg-transparent py-5'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <button className="flex items-center gap-3" onClick={() => scrollToSection('home')} aria-label="SB LED Boards - Go to home">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+
+          {/* Logo */}
+          <button className="flex items-center gap-3 flex-shrink-0" onClick={() => scrollToSection('home')} aria-label="SB LED Boards - Go to home">
             <div className="relative w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg shadow-amber-500/20 overflow-hidden group">
               <span className="group-hover:scale-110 transition-transform">SB</span>
             </div>
@@ -309,7 +311,8 @@ export default function App() {
             </div>
           </button>
 
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-6">
             {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item) => (
               <button
                 key={item}
@@ -320,6 +323,23 @@ export default function App() {
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-amber-500 group-hover:w-full transition-all duration-300" />
               </button>
             ))}
+          </div>
+
+          {/* Desktop Right: Phone + CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Phone Call Button */}
+            <a
+              href="tel:+919001933901"
+              aria-label="Call SB LED Boards"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/60 transition-all group"
+            >
+              <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <Phone className="w-3 h-3 text-black" />
+              </div>
+              <span className="text-amber-400 font-bold text-sm font-['Space_Grotesk'] tracking-wide">+91 9001933901</span>
+            </a>
+
+            {/* Get Quote Button */}
             <button
               onClick={() => setSelectedService(services[0])}
               className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-full hover:opacity-90 active:scale-95 transition-all text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20"
@@ -328,11 +348,23 @@ export default function App() {
             </button>
           </div>
 
-          <button className="md:hidden p-2 text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
-            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-          </button>
+          {/* Mobile Right: Phone icon + Hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <a
+              href="tel:+919001933901"
+              aria-label="Call SB LED Boards"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 transition-all"
+            >
+              <Phone className="w-4 h-4 text-amber-400" />
+              <span className="text-amber-400 font-bold text-xs font-['Space_Grotesk']">Call Now</span>
+            </a>
+            <button className="p-2 text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            </button>
+          </div>
         </div>
 
+        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-[#0a0a0a] border-b border-white/10">
@@ -342,6 +374,21 @@ export default function App() {
                     {item}
                   </button>
                 ))}
+
+                {/* Phone number row in mobile menu */}
+                <a
+                  href="tel:+919001933901"
+                  className="flex items-center gap-3 py-3 px-4 bg-amber-500/10 border border-amber-500/20 rounded-xl hover:bg-amber-500/20 transition-all"
+                >
+                  <div className="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-4 h-4 text-black" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-amber-500/70 uppercase tracking-widest font-bold">Call Us Now</p>
+                    <p className="text-amber-400 font-bold text-lg font-['Space_Grotesk']">+91 9001933901</p>
+                  </div>
+                </a>
+
                 <button onClick={() => { setSelectedService(services[0]); setMobileMenuOpen(false); }} className="w-full mt-2 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl text-sm uppercase tracking-wider">
                   Get Free Quote
                 </button>
@@ -482,21 +529,19 @@ export default function App() {
                 onKeyDown={(e) => e.key === 'Enter' && setLightboxImg(img)}
                 aria-label={`View ${img.alt}`}
               >
-                {/* Real image */}
                 <img
                   src={img.src}
                   alt={img.alt}
                   className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-300"
-                  onLoad={(e) => { const el = e.target as HTMLImageElement; el.closest('.relative')?.querySelector('.placeholder-div' as any)?.classList.add('hidden'); }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  onLoad={(e) => { const el = e.target as HTMLImageElement; el.closest('.relative')?.querySelector('.placeholder-div' as any)?.classList.add('hidden'); }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
-                {/* Placeholder when no image */}
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-white/3 to-transparent">
                   <div className="text-center">
                     <Layers className="w-12 h-12 text-gray-700 mx-auto mb-2 group-hover:text-amber-500/40 transition-colors" />
                     <p className="text-gray-700 font-medium text-xs uppercase tracking-widest">Image {i + 1}</p>
                   </div>
                 </div>
-                {/* Hover overlay */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center backdrop-blur-[2px]">
                   <div className="flex items-center gap-2 text-white font-bold text-sm border border-white/30 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md">
                     <ZoomIn className="w-4 h-4" /> View Full
