@@ -392,7 +392,7 @@ export default function App() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto border-t border-white/10 pt-10">
-            {[{ value: '500+', label: 'Projects Delivered' }, { value: '100+', label: 'Happy Clients' }, { value: '5+', label: 'Years Experience' }, { value: '24/7', label: 'Support' }].map((stat, i) => (
+            {[{ value: '500+', label: 'Projects Delivered' }, { value: '100+', label: 'Happy Clients' }, { value: '10+', label: 'Years Experience' }, { value: '24/7', label: 'Support' }].map((stat, i) => (
               <div key={i} className="text-center group cursor-default">
                 <div className="text-3xl sm:text-4xl font-black text-white mb-1 font-['Outfit'] group-hover:text-amber-500 transition-colors">{stat.value}</div>
                 <div className="text-xs text-gray-500 uppercase tracking-widest font-bold">{stat.label}</div>
