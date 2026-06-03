@@ -286,9 +286,22 @@ export default function App() {
     return () => window.removeEventListener('resize', handler);
   }, []);
 
+  // Body scroll lock when mobile menu open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenuOpen(false);
+    // Small delay taaki menu pehle band ho, phir scroll ho
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   return (
@@ -296,12 +309,82 @@ export default function App() {
       {/* Progress Bar */}
       <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 origin-left z-50" style={{ scaleX }} />
 
+      {/* ===== MOBILE MENU FULLSCREEN OVERLAY ===== */}
+      {/* Yeh poora alag component hai - navbar ke bahar, z-[45] pe */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[45] bg-black/60 backdrop-blur-sm md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              className="fixed top-0 left-0 right-0 z-[46] bg-[#0a0a0a] border-b border-white/10 shadow-2xl md:hidden"
+              style={{ paddingTop: '70px' }} // navbar height ke baad
+            >
+              <div className="px-6 py-6 space-y-1">
+                {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(item.toLowerCase())}
+                    className="flex items-center justify-between w-full text-left text-xl font-['Outfit'] font-bold text-white hover:text-amber-500 active:text-amber-400 transition-colors py-3 px-2 rounded-xl hover:bg-white/5 active:bg-white/10"
+                    style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                  >
+                    {item}
+                    <ChevronRight className="w-5 h-5 text-gray-600" />
+                  </button>
+                ))}
+
+                <div className="pt-4 space-y-3">
+                  {/* Phone number row in mobile menu */}
+                  <a
+                    href="tel:+919001933901"
+                    className="flex items-center gap-3 py-3 px-4 bg-amber-500/10 border border-amber-500/20 rounded-xl hover:bg-amber-500/20 active:bg-amber-500/30 transition-all"
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                  >
+                    <div className="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-4 h-4 text-black" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-amber-500/70 uppercase tracking-widest font-bold">Call Us Now</p>
+                      <p className="text-amber-400 font-bold text-lg font-['Space_Grotesk']">+91 9001933901</p>
+                    </div>
+                  </a>
+
+                  <button
+                    onClick={() => { setSelectedService(services[0]); setMobileMenuOpen(false); }}
+                    className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl text-sm uppercase tracking-wider active:opacity-80 transition-opacity"
+                    style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                  >
+                    Get Free Quote
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? 'bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 py-3' : 'bg-transparent py-5'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-[47] transition-all duration-500 ${isScrolled ? 'bg-[#050505]/95 backdrop-blur-xl border-b border-white/5 py-3' : 'bg-[#050505]/80 backdrop-blur-md py-5'}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
 
           {/* Logo */}
-          <button className="flex items-center gap-3 flex-shrink-0" onClick={() => scrollToSection('home')} aria-label="SB LED Boards - Go to home">
+          <button
+            className="flex items-center gap-3 flex-shrink-0"
+            onClick={() => scrollToSection('home')}
+            aria-label="SB LED Boards - Go to home"
+            style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+          >
             <div className="relative w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg shadow-amber-500/20 overflow-hidden group">
               <span className="group-hover:scale-110 transition-transform">SB</span>
             </div>
@@ -327,7 +410,6 @@ export default function App() {
 
           {/* Desktop Right: Phone + CTA */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Phone Call Button */}
             <a
               href="tel:+919001933901"
               aria-label="Call SB LED Boards"
@@ -338,8 +420,6 @@ export default function App() {
               </div>
               <span className="text-amber-400 font-bold text-sm font-['Space_Grotesk'] tracking-wide">+91 9001933901</span>
             </a>
-
-            {/* Get Quote Button */}
             <button
               onClick={() => setSelectedService(services[0])}
               className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-full hover:opacity-90 active:scale-95 transition-all text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20"
@@ -354,48 +434,31 @@ export default function App() {
               href="tel:+919001933901"
               aria-label="Call SB LED Boards"
               className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 transition-all"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Phone className="w-4 h-4 text-amber-400" />
               <span className="text-amber-400 font-bold text-xs font-['Space_Grotesk']">Call Now</span>
             </a>
-            <button className="p-2 text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
-              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            <button
+              className="p-2 text-white rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+              style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileMenuOpen ? (
+                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <X className="w-7 h-7" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <Menu className="w-7 h-7" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-[#0a0a0a] border-b border-white/10">
-              <div className="px-6 py-6 space-y-4">
-                {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item) => (
-                  <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className="block w-full text-left text-xl font-['Outfit'] font-bold text-white hover:text-amber-500 transition-colors py-1">
-                    {item}
-                  </button>
-                ))}
-
-                {/* Phone number row in mobile menu */}
-                <a
-                  href="tel:+919001933901"
-                  className="flex items-center gap-3 py-3 px-4 bg-amber-500/10 border border-amber-500/20 rounded-xl hover:bg-amber-500/20 transition-all"
-                >
-                  <div className="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-4 h-4 text-black" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-amber-500/70 uppercase tracking-widest font-bold">Call Us Now</p>
-                    <p className="text-amber-400 font-bold text-lg font-['Space_Grotesk']">+91 9001933901</p>
-                  </div>
-                </a>
-
-                <button onClick={() => { setSelectedService(services[0]); setMobileMenuOpen(false); }} className="w-full mt-2 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl text-sm uppercase tracking-wider">
-                  Get Free Quote
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
 
       {/* Hero Section */}
