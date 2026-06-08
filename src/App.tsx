@@ -693,8 +693,8 @@ export default function App() {
           {/* Contact Cards */}
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
             {[
-              { icon: Phone, title: 'Call Us', info: '+91 9001933901', link: 'tel:+919001933901', color: 'from-amber-500 to-orange-600', desc: 'Mon–Sat, 9am–7pm' },
-              { icon: Mail, title: 'Email Us', info: 'sbsignagebrandingsolution@gmail.com', link: 'mailto:sbsignagebrandingsolution@gmail.com', color: 'from-fuchsia-500 to-purple-600', desc: 'We reply within 24 hours' },
+              { icon: Phone, title: 'Call Us', info: '+91 9001933901', link: 'tel:+919001933901', color: 'from-amber-500 to-orange-600', desc: '24 X 7' },
+              { icon: Mail, title: 'Email Us', info: 'sbsignagebrandingsolution@gmail.com', link: 'mailto:sbsignagebrandingsolution@gmail.com', color: 'from-fuchsia-500 to-purple-600', desc: 'We reply within 8 hours' },
               { icon: MapPin, title: 'Visit Us', info: 'Ganesh Vihar, Jamna Puri, Jaipur – 302012', link: 'https://maps.app.goo.gl/frH9c1c64CkQGPDg7', color: 'from-cyan-500 to-blue-600', desc: 'Open for walk-ins' }
             ].map((item, i) => (
               <motion.a
